@@ -50,7 +50,7 @@ public class LogView: UIView {
         self.addSubview(contentView)
         contentView.layer.cornerRadius = 5
         contentView.clipsToBounds = true
-        contentView.translatesAutoresizingMaskIntoConstraints = true
+        contentView.translatesAutoresizingMaskIntoConstraints = false
         contentView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0).isActive = true
         contentView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0).isActive = true
         contentView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0).isActive = true
