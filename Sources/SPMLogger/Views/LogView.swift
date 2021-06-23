@@ -78,9 +78,9 @@ public class LogView: UIView {
     
     private func setupButtons() {
         saveButton.titleLabel?.font = UIFont(name: "AvenirNext-Medium", size: 12)
-        saveButton.addTarget(self, action: #selector(saveButton), for: .touchUpInside)
+        saveButton.addTarget(self, action: #selector(saveButtonWasPressed(_:)), for: .touchUpInside)
         clearButton.titleLabel?.font = UIFont(name: "AvenirNext-Medium", size: 12)
-        clearButton.addTarget(self, action: #selector(clearButton), for: .touchUpInside)
+        clearButton.addTarget(self, action: #selector(clearButtonWasPressed(_:)), for: .touchUpInside)
         let stack = UIStackView(arrangedSubviews: [saveButton, clearButton])
         stack.axis = .horizontal
         stack.spacing = 20
@@ -134,7 +134,7 @@ public class LogView: UIView {
 
 extension LogView: UITableViewDelegate, UITableViewDataSource {
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) else { return UITableViewCell}
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) else { return UITableViewCell() }
         cell.textLabel?.numberOfLines = 0
         cell.textLabel?.textColor = UIColor.green.withAlphaComponent(1)
         cell.textLabel?.text = loggerValues[indexPath.row]
