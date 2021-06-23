@@ -134,19 +134,16 @@ public class LogView: UIView {
 
 extension LogView: UITableViewDelegate, UITableViewDataSource {
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) {
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
             cell.textLabel?.numberOfLines = 0
             cell.textLabel?.textColor = UIColor.green.withAlphaComponent(1)
             cell.textLabel?.text = loggerValues[indexPath.row]
             return cell
-        } else {
-            return UITableViewCell()
         }
-    }
-    
-    public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
-    }
+        
+        public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            return 1
+        }
     
 //    private enum Section { case main }
 //
