@@ -31,7 +31,7 @@ public class LogView: UIView {
     
     //MARK: - Lifecycle
 
-    init() {
+    public init() {
         super.init(frame: .zero)
         setupContentView()
         setupTopBarView()
