@@ -41,7 +41,7 @@ public class LogView: UIView {
         setupTitleLabel()
         setupButtons()
         setupTableView()
-        createLogView(: false)
+        createLogView(isPresented: false)
     }
     
     required init?(coder: NSCoder) {
