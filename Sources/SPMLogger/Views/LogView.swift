@@ -24,7 +24,6 @@ public class LogView: UIView {
     private var oldValue = 0
     private var currentIndex = 0
     private var logViewTag = 17
-    private var parentView: UIViewController
     public var loggerValues: [String] = [] {
         didSet {
             tableView.reloadData()
@@ -33,8 +32,7 @@ public class LogView: UIView {
     
     //MARK: - Lifecycle
 
-    public init(parentView: UIViewController) {
-        self.parentView = parentView
+    public init() {
         super.init(frame: .zero)
         setupContentView()
         setupTopBarView()
@@ -46,7 +44,6 @@ public class LogView: UIView {
     }
     
     required init?(coder: NSCoder) {
-        self.parentView = UIViewController()
         super.init(coder: coder)
     }
     
@@ -129,7 +126,7 @@ public class LogView: UIView {
 
 //        BaseViewController.logViewIsPresented = true
 //
-        let logWidth = window?.frame.size.width ?? parentView.view.bounds.width
+        let logWidth = window?.frame.size.width ?? 200
         let logFrame = CGRect(x: 0, y: 50, width: logWidth, height: 250)
         
         window?.rootViewController?.view.addSubview(self)
@@ -149,8 +146,10 @@ public class LogView: UIView {
 
     @objc private func handlePanGesture(panGesture: UIPanGestureRecognizer) {
         // get translation
-        let translation = panGesture.translation(in: parentView.view)
-        panGesture.setTranslation(.zero, in: parentView.view)
+        let window = UIApplication.shared.windows.first
+        let view = window?.rootViewController?.view
+        let translation = panGesture.translation(in: view)
+        panGesture.setTranslation(.zero, in: view)
         // println(translation)
 
         // create a new Label and give it the parameters of the old one
