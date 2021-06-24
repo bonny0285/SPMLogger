@@ -128,12 +128,16 @@ public class LogView: UIView {
 
 //        BaseViewController.logViewIsPresented = true
 //
-//        let logWidth = window?.frame.size.width ?? self.view.bounds.width
-//        let logFrame = CGRect(x: 0, y: 50, width: logWidth, height: 250)
+        let logWidth = window?.frame.size.width ?? parentView.view.bounds.width
+        let logFrame = CGRect(x: 0, y: 50, width: logWidth, height: 250)
+        
+        window?.rootViewController?.view.addSubview(self)
+        
+        self.frame = logFrame
 //        logView = LogView(frame: logFrame, logPublisher: Log.shared.$logHistory.eraseToAnyPublisher())
         self.tag = logViewTag
 
-        window?.rootViewController?.view.addSubview(self)
+        
         createPanGestureRecognizer(targetView: self)
     }
 
