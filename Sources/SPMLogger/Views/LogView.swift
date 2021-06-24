@@ -41,7 +41,7 @@ public class LogView: UIView {
         setupTitleLabel()
         setupButtons()
         setupTableView()
-        createLogView(needToBePresented: true)
+        createLogView(: false)
     }
     
     required init?(coder: NSCoder) {
@@ -116,10 +116,10 @@ public class LogView: UIView {
         tableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0).isActive = true
     }
     
-    func createLogView(needToBePresented presented: Bool) {
+    func createLogView(isPresented: Bool) {
         let window = UIApplication.shared.windows.first
 
-        guard presented == false else {
+        guard isPresented == false else {
             let window = UIApplication.shared.windows.first
             let view = window?.viewWithTag(logViewTag)
             view?.removeFromSuperview()
