@@ -23,6 +23,8 @@ public class LogView: UIView {
     private let cellIdentifier = "LogCell"
     private var oldValue = 0
     private var currentIndex = 0
+    private var logViewTag = 17
+    private var parentView: UIViewController
     public var loggerValues: [String] = [] {
         didSet {
             tableView.reloadData()
@@ -31,16 +33,19 @@ public class LogView: UIView {
     
     //MARK: - Lifecycle
 
-    public init() {
+    public init(parentView: UIViewController) {
+        self.parentView = parentView
         super.init(frame: .zero)
         setupContentView()
         setupTopBarView()
         setupTitleLabel()
         setupButtons()
         setupTableView()
+        createLogView(needToBePresented: true)
     }
     
     required init?(coder: NSCoder) {
+        self.parentView = UIViewController()
         super.init(coder: coder)
     }
     
@@ -109,6 +114,59 @@ public class LogView: UIView {
         tableView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 0).isActive = true
         tableView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: 0).isActive = true
         tableView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 0).isActive = true
+    }
+    
+    func createLogView(needToBePresented presented: Bool) {
+        let window = UIApplication.shared.windows.first
+
+        guard presented == false else {
+            let window = UIApplication.shared.windows.first
+            let view = window?.viewWithTag(logViewTag)
+            view?.removeFromSuperview()
+            return
+        }
+
+//        BaseViewController.logViewIsPresented = true
+//
+//        let logWidth = window?.frame.size.width ?? self.view.bounds.width
+//        let logFrame = CGRect(x: 0, y: 50, width: logWidth, height: 250)
+//        logView = LogView(frame: logFrame, logPublisher: Log.shared.$logHistory.eraseToAnyPublisher())
+        self.tag = logViewTag
+
+        window?.rootViewController?.view.addSubview(self)
+        createPanGestureRecognizer(targetView: self)
+    }
+
+    private func createPanGestureRecognizer(targetView: UIView) {
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePanGesture(panGesture:)))
+        targetView.addGestureRecognizer(panGesture)
+    }
+
+    @objc private func handlePanGesture(panGesture: UIPanGestureRecognizer) {
+        // get translation
+        let translation = panGesture.translation(in: parentView.view)
+        panGesture.setTranslation(.zero, in: parentView.view)
+        // println(translation)
+
+        // create a new Label and give it the parameters of the old one
+        let label = panGesture.view!
+        label.center = CGPoint(x: label.center.x+translation.x, y: label.center.y+translation.y)
+        label.isMultipleTouchEnabled = true
+        label.isUserInteractionEnabled = true
+
+        if panGesture.state == UIGestureRecognizer.State.began {
+            // add something you want to happen when the Label Panning has started
+        }
+
+        if panGesture.state == UIGestureRecognizer.State.ended {
+            // add something you want to happen when the Label Panning has ended
+        }
+
+        if panGesture.state == UIGestureRecognizer.State.changed {
+            // add something you want to happen when the Label Panning has been change ( during the moving/panning )
+        } else {
+            // or something when its not moving
+        }
     }
     
     //MARK: - Actions
