@@ -69,6 +69,7 @@ public class LogView: UIView {
     
     private func setupTitleLabel() {
         topBarView.addSubview(titleLabel)
+        titleLabel.text = "Log Console"
         titleLabel.textColor = .white
         titleLabel.font = UIFont(name: "AvenirNext-Bold", size: 16)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -77,8 +78,12 @@ public class LogView: UIView {
     }
     
     private func setupButtons() {
+        saveButton.setTitle("Save", for: .normal)
         saveButton.titleLabel?.font = UIFont(name: "AvenirNext-Medium", size: 12)
+        saveButton.titleLabel?.textColor = .white
         saveButton.addTarget(self, action: #selector(saveButtonWasPressed(_:)), for: .touchUpInside)
+        clearButton.setTitle("Clear", for: .normal)
+        clearButton.titleLabel?.textColor = .white
         clearButton.titleLabel?.font = UIFont(name: "AvenirNext-Medium", size: 12)
         clearButton.addTarget(self, action: #selector(clearButtonWasPressed(_:)), for: .touchUpInside)
         let stack = UIStackView(arrangedSubviews: [saveButton, clearButton])
@@ -142,7 +147,7 @@ extension LogView: UITableViewDelegate, UITableViewDataSource {
         }
         
         public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return 1
+            return loggerValues.count
         }
     
 //    private enum Section { case main }
