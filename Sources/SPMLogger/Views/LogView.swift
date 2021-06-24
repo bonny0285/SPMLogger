@@ -42,6 +42,7 @@ public class LogView: UIView {
         setupButtons()
         setupTableView()
         createLogView(isPresented: false)
+        addPinchGesture()
     }
     
     required init?(coder: NSCoder) {
