@@ -72,6 +72,7 @@ public class LogView: UIView {
         titleLabel.text = "Log Console"
         titleLabel.textColor = .white
         titleLabel.font = UIFont(name: "AvenirNext-Bold", size: 16)
+        titleLabel.adjustsFontSizeToFitWidth = true
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.centerYAnchor.constraint(equalTo: topBarView.centerYAnchor).isActive = true
         titleLabel.centerXAnchor.constraint(equalTo: topBarView.centerXAnchor).isActive = true
@@ -93,6 +94,7 @@ public class LogView: UIView {
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.centerYAnchor.constraint(equalTo: topBarView.centerYAnchor).isActive = true
         stack.trailingAnchor.constraint(equalTo: topBarView.trailingAnchor, constant: -20).isActive = true
+        stack.leadingAnchor.constraint(greaterThanOrEqualTo: titleLabel.trailingAnchor, constant: 10).isActive = true
     }
     
     private func setupTableView() {
