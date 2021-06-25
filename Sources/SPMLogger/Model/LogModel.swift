@@ -9,7 +9,7 @@ import Foundation
 
 
 /// This class provides multiple methods to print messages and retrieve them, also thread safe
-class Log {
+public class Log {
     // MARK: - Singleton
     static let shared = Log()
     private init() {}
@@ -73,31 +73,31 @@ class Log {
         Log.shared.logsSemaphore.signal() // End of block
     }
 
-    class func e(_ object: Any, filename: String = #file, line: Int = #line, funcName: String = #function) {
+    public class func e(_ object: Any, filename: String = #file, line: Int = #line, funcName: String = #function) {
         log(event: LogEvent.error, object, filename: filename, line: line, funcName: funcName)
     }
 
-    class func i(_ object: Any, filename: String = #file, line: Int = #line, funcName: String = #function) {
+    public class func i(_ object: Any, filename: String = #file, line: Int = #line, funcName: String = #function) {
         log(event: LogEvent.info, object, filename: filename, line: line, funcName: funcName)
     }
 
-    class func d(_ object: Any, filename: String = #file, line: Int = #line, funcName: String = #function) {
+    public class func d(_ object: Any, filename: String = #file, line: Int = #line, funcName: String = #function) {
         log(event: LogEvent.debug, object, filename: filename, line: line, funcName: funcName)
     }
 
-    class func v(_ object: Any, filename: String = #file, line: Int = #line, funcName: String = #function) {
+    public class func v(_ object: Any, filename: String = #file, line: Int = #line, funcName: String = #function) {
         log(event: LogEvent.verbose, object, filename: filename, line: line, funcName: funcName)
     }
 
-    class func w(_ object: Any, filename: String = #file, line: Int = #line, funcName: String = #function) {
+    public class func w(_ object: Any, filename: String = #file, line: Int = #line, funcName: String = #function) {
         log(event: LogEvent.warning, object, filename: filename, line: line, funcName: funcName)
     }
 
-    class func s(_ object: Any, filename: String = #file, line: Int = #line, funcName: String = #function) {
+    public class func s(_ object: Any, filename: String = #file, line: Int = #line, funcName: String = #function) {
         log(event: LogEvent.severe, object, filename: filename, line: line, funcName: funcName)
     }
 
-    class func cleanHistory() {
+    public class func cleanHistory() {
         Log.shared.logsSemaphore.wait() // Begin thread safe block
 
         Log.shared.logHistory.removeAll()
