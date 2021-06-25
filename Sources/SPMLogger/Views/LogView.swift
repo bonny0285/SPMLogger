@@ -24,15 +24,7 @@ public class LogView: UIView {
     private var oldValue = 0
     private var currentIndex = 0
     private var logViewTag = 17
-    public var loggerValues: [String] = [] {
-        didSet {
-            Log.shared.onCallBack = { [weak self] result in
-                guard let self = self else { return }
-                self.loggerValues = result
-                self.tableView.reloadData()
-            }
-        }
-    }
+    public var loggerValues: [String] = [] 
     
     //MARK: - Lifecycle
 
@@ -45,6 +37,11 @@ public class LogView: UIView {
         setupTableView()
         createLogView(isPresented: false)
         addPinchGesture()
+        Log.shared.onCallBack = { [weak self] result in
+            guard let self = self else { return }
+            self.loggerValues = result
+            self.tableView.reloadData()
+        }
     }
     
     required init?(coder: NSCoder) {
