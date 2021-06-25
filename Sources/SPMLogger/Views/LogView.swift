@@ -24,7 +24,7 @@ public class LogView: UIView {
     private var oldValue = 0
     private var currentIndex = 0
     private var logViewTag = 17
-    public var loggerValues: [String] = [] 
+    public var loggerValues: [String] = []
     
     //MARK: - Lifecycle
 
@@ -53,6 +53,8 @@ public class LogView: UIView {
     private func setupContentView() {
         self.addSubview(contentView)
         contentView.layer.cornerRadius = 5
+        contentView.layer.borderWidth = 1
+        contentView.layer.borderColor = UIColor.black.cgColor
         contentView.clipsToBounds = true
         contentView.translatesAutoresizingMaskIntoConstraints = false
         contentView.topAnchor.constraint(equalTo: self.topAnchor, constant: 0).isActive = true
