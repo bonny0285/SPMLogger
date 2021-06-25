@@ -11,16 +11,16 @@ import Foundation
 /// This class provides multiple methods to print messages and retrieve them, also thread safe
 public class Log {
     // MARK: - Singleton
-    static public let shared = Log()
+    public static let shared = Log()
     private init() {}
 
     // MARK: - Properties
 
-    static var isLoggingEnabled = true
+    public static var isLoggingEnabled = true
 
     // Date in the Log message
-    static var dateFormat = "yyyy-MM-dd hh:mm:ss.SSS"
-    static var dateFormatter: DateFormatter {
+    public static var dateFormat = "yyyy-MM-dd hh:mm:ss.SSS"
+    public static var dateFormatter: DateFormatter {
         let formatter = DateFormatter()
         formatter.dateFormat = dateFormat
         formatter.locale = Locale.current
@@ -39,7 +39,7 @@ public class Log {
             onCallBack?(logHistory)
         }
     }
-    var onCallBack: (([String]) -> Void)?
+    public var onCallBack: (([String]) -> Void)?
     private var logSet = Set<String>()
     private var logsSemaphore = DispatchSemaphore(value: 1)
 
@@ -109,7 +109,7 @@ public class Log {
 
 // MARK: - Log Builder
 extension Log {
-    class Builder {
+    internal class Builder {
         private var logEvent: LogEvent?
         private var logSymbol: String = ""
         private var object: Any = ""
@@ -186,7 +186,7 @@ extension Log {
 }
 
 // MARK: - LogEvent
-enum LogEvent: String {
+internal enum LogEvent: String {
     case error = "[‼️]"
     case info = "[ℹ️]"
     case debug = "[💬]"
