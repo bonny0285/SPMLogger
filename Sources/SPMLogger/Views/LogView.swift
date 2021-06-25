@@ -105,6 +105,7 @@ public class LogView: UIView {
     
     private func setupTableView() {
         contentView.addSubview(tableView)
+        tableView.backgroundColor = .black.withAlphaComponent(0.2)
         tableView.register(LogCell.self, forCellReuseIdentifier: cellIdentifier)
         tableView.tableFooterView = UIView()
         tableView.rowHeight = UITableView.automaticDimension
@@ -179,26 +180,26 @@ public class LogView: UIView {
     //MARK: - Actions
 
     @objc func saveButtonWasPressed(_ sender: UIButton) {
-//        guard Log.shared.logHistory.count > 0 else { return }
-//
-//        saveButton.isEnabled = false
-//
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "yyyy-MM-dd_hh-mm-ss"
-//        formatter.locale = Locale.current
-//        formatter.timeZone = TimeZone.current
-//
-//        let logHistoryString = Log.shared.logHistory.joined(separator: "\n")
-//        let fileName = "bticino_log_\(formatter.string(from: Date.now)).txt"
-//        FileHelper.saveAndShowAlert(text: logHistoryString, onDirectory: "logs", fileName: fileName) {
-//            self.saveButton.isEnabled = true
-//        }
+        guard Log.shared.logHistory.count > 0 else { return }
+
+        saveButton.isEnabled = false
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd_hh-mm-ss"
+        formatter.locale = Locale.current
+        formatter.timeZone = TimeZone.current
+
+        let logHistoryString = Log.shared.logHistory.joined(separator: "\n")
+        let fileName = "bticino_log_\(formatter.string(from: Date.now)).txt"
+        FileHelper.saveAndShowAlert(text: logHistoryString, onDirectory: "logs", fileName: fileName) {
+            self.saveButton.isEnabled = true
+        }
     }
     
     @objc func clearButtonWasPressed(_ sender: UIButton) {
-//        Log.cleanHistory()
-//        oldValue = 0
-//        currentIndex = 0
+        Log.cleanHistory()
+        oldValue = 0
+        currentIndex = 0
     }
 }
 
@@ -207,12 +208,13 @@ public class LogView: UIView {
 extension LogView: UITableViewDelegate, UITableViewDataSource {
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
-            cell.textLabel?.numberOfLines = 0
-            cell.textLabel?.textColor = UIColor.green.withAlphaComponent(1)
-            cell.textLabel?.text = loggerValues[indexPath.row]
-            return cell
-        }
-        
+        cell.backgroundColor = .black.withAlphaComponent(0.2)
+        cell.textLabel?.numberOfLines = 0
+        cell.textLabel?.textColor = UIColor.green.withAlphaComponent(1)
+        cell.textLabel?.text = loggerValues[indexPath.row]
+        return cell
+    }
+    
         public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
             return loggerValues.count
         }
