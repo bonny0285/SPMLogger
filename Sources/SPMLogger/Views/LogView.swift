@@ -26,7 +26,11 @@ public class LogView: UIView {
     private var logViewTag = 17
     public var loggerValues: [String] = [] {
         didSet {
-            tableView.reloadData()
+            Log.shared.onCallBack = { [weak self] result in
+                guard let self = self else { return }
+                self.loggerValues = result
+                self.tableView.reloadData()
+            }
         }
     }
     
