@@ -11,7 +11,7 @@ import Foundation
 /// This class provides multiple methods to print messages and retrieve them, also thread safe
 public class Log {
     // MARK: - Singleton
-    static let shared = Log()
+    public static let shared = Log()
     private init() {}
 
     // MARK: - Properties
